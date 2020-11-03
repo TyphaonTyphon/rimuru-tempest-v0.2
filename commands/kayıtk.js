@@ -4,7 +4,8 @@ module.exports = {
     description: "kayıt komutu",
 
     async run (client, message, args){
-    if (!message.member.hasPermission(["MANAGE_GUILD", "ADMINISTRATOR"])) {
+    let allowedRole = message.guild.roles.find("↺ | Teyit Sorumlusu");
+    if (!message.member.roles.has(allowedRole.id)) {
     return message.channel.send({embed: {color: "RED", description: "Bu komutu kullanamazsın!"}})
     }
     const user = message.mentions.users.first();
