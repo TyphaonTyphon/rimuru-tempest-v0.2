@@ -16,13 +16,22 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
+var oynuyorkısımları = [
+"ryardım",
+"Rimuru Bot",
+"by TyphaonTyphon"
+]
 client.on("error", console.error);
 
 client.on('ready', () => {
     console.log('Rimuru Tempest Göreve Hazır');
     client.user.setStatus(`idle`)
-    client.user.setActivity("Shuna'nın kalbi ile");
-});
+    client.channels.cache.get('756135903013109780').startTyping();
+    client.channels.cache.get('767082780605546606').join();
+    setInterval(function() {
+        var random = Math.floor(Math.random()*(oynuyorkısımları.length-0+1)+0);
+       client.user.setActivity(oynuyorkısımları[random], { type: 'PLAYING' });
+        }, 2 * 3000)});
 
 let stats = {
     serverID: '755210448953147493',
@@ -34,7 +43,7 @@ let stats = {
 client.on('guildMemberAdd', member => {
     if(member.guild.id !== stats.serverID) return;
     client.channels.cache.get(stats.total).setName(`Toplam: ${member.guild.memberCount}`);
-    client.channels.cache.get(stats.member).setName(`üyeler: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
+    client.channels.cache.get(stats.member).setName(`Üyeler: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
     client.channels.cache.get(stats.bots).setName(`Botlar: ${member.guild.members.cache.filter(m => m.user.bot).size}`);
     const kayıtsız = member.guild.roles.cache.find(r => r.name === "Kayıtsız");
     member.roles.add(kayıtsız)
