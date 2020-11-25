@@ -4,8 +4,7 @@ module.exports = {
     description: "kayıt komutu",
 
     async run (client, message, args){
-    let allowedRole = message.guild.roles.cache.find("↺ | Teyit Sorumlusu");
-    if (!message.member.roles.has(allowedRole.id)) {
+    if (!message.member.roles.cache.find(r => r.name === "↺ | Teyit Sorumlusu")) {
     return message.channel.send({embed: {color: "RED", description: "Bu komutu kullanamazsın!"}})
     }
     const user = message.mentions.users.first();
@@ -14,11 +13,9 @@ module.exports = {
     const yenisim = `${tag} ${isim}`;
     const member = message.guild.members.cache.get(user.id);
     await member.setNickname(yenisim);
-    const kayıtsız = member.guild.roles.cache.find(r => r.name === "Kayıtsız");
+    const kayıtsız = member.guild.roles.cache.find(r => r.name === "People");
     member.roles.remove(kayıtsız)
-    const üye = member.guild.roles.cache.find(r => r.name === "λ | Üye");
-    member.roles.add(üye)
-    const cins = member.guild.roles.cache.find(r => r.name === "λ | Erkek");
+    const cins = member.guild.roles.cache.find(r => r.name === "Lost ↺");
     member.roles.add(cins)
     const kayıt = new Discord.MessageEmbed()
 	.setColor('GREEN')
